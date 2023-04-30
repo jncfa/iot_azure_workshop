@@ -59,7 +59,7 @@ def on_local_message(local_client, userdata, msg):
 # Callback for received message in the cloud:
 def on_cloud_message(cloud_client, userdata, msg):
     #publish the exact same message on the local MQTT broker:
-    print("Cloud -> Local: Topic [" + LOCAL_TOPIC_SUB + "]. Msg \""+str(msg.payload)+"\"")
+    print("Cloud -> Local: Topic [" + LOCAL_TOPIC_PUB + "]. Msg \""+str(msg.payload)+"\"")
     local_client.publish(LOCAL_TOPIC_PUB, str(msg.payload))
 
 #########################################################################
