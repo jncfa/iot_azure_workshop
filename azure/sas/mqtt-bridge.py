@@ -28,11 +28,12 @@ SAS_TOKEN = "<generated SAS token>"
 IOT_HUB_NAME = "<iot hub name>"
 
 # Address of the Cloud MQTT Broker for Azure IoT Hub and MQTT username of the device:
-CLOUD_MQTT_URL = f"{IOT_HUB_NAME}.azure-devices.net"
-USERNAME = f"{CLOUD_MQTT_URL}/{DEVICE_ID}/?api-version=2021-04-12"
+CLOUD_MQTT_URL = "{}.azure-devices.net".format(IOT_HUB_NAME)
+USERNAME = "{}/{}/?api-version=2021-04-12".format(CLOUD_MQTT_URL, DEVICE_ID)
 
-# A topic to get information from the cloud:	 
-CLOUD_TOPIC = f"devices/{DEVICE_ID}/messages/events/"
+# A topic to get information from the cloud:
+JSON_METADATA = "$.ct=application%2Fjson%3Bcharset%3Dutf-8"	 
+CLOUD_TOPIC = "devices/{}/messages/events/{}".format(DEVICE_ID, JSON_METADATA)
 
 #########################################################################
 
