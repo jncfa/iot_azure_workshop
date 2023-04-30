@@ -19,7 +19,7 @@ CLOUD_TOPIC = "devices/{}/messages/events/{}".format(DEVICE_ID, JSON_METADATA)
 
 #Override MQTT_TOPIC from the cmd line:
 if len(sys.argv) > 1:
-  MQTT_TOPIC = str(sys.argv[1])
+  CLOUD_TOPIC = str(sys.argv[1])
 
 def on_message(client, userdata, msg):
     print(msg.topic + " " + str(msg.payload))
@@ -36,8 +36,8 @@ client.tls_insecure_set(False)
 client.on_message = on_message
 
 client.connect(CLOUD_MQTT_URL, 8883, 60)
-print("Setup a subscriber in topic: \""+MQTT_TOPIC+"\"")
-client.subscribe(MQTT_TOPIC)
+print("Setup a subscriber in topic: \""+CLOUD_TOPIC+"\"")
+client.subscribe(CLOUD_TOPIC)
 
 try: 
 	client.loop_forever()

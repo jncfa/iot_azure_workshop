@@ -2,6 +2,7 @@ import time
 import paho.mqtt.client as mqtt
 import ssl
 import sys
+import json
 
 # Connection parameters for the Azure IoT Hub:
 PATH_TO_ROOT_CERT  = "<local path to digicert.crt.pem file>"
@@ -17,9 +18,9 @@ USERNAME = "{}/{}/?api-version=2021-04-12".format(CLOUD_MQTT_URL, DEVICE_ID)
 JSON_METADATA = "$.ct=application%2Fjson%3Bcharset%3Dutf-8"	 
 CLOUD_TOPIC = "devices/{}/messages/events/{}".format(DEVICE_ID, JSON_METADATA)
 
-# Override MQTT_TOPIC from the cmd line:
+# Override CLOUD_TOPIC from the cmd line:
 if len(sys.argv) > 1:
-    MQTT_TOPIC = str(sys.argv[1])
+    CLOUD_TOPIC = str(sys.argv[1])
 
 
 print("Connecting to the Cloud at " + CLOUD_MQTT_URL + "...")
@@ -36,12 +37,13 @@ client.connect(CLOUD_MQTT_URL, 8883, 60)
 # client.loop_start()
 pub_count = 0
 
-print("Setup a publisher in topic: \""+MQTT_TOPIC+"\"")
+print("Setup a publisher in topic: \""+CLOUD_TOPIC+"\"")
 
 while True:
     try:
-        print("publishing: msg " + str(pub_count))
-        client.publish(MQTT_TOPIC, "msg " + str(pub_count))
+        msg = json.dumps({"msgid": pub_count})
+        print("publishing: " + msg)
+        client.publish(CLOUD_TOPIC, msg)
         pub_count += 1
         # wait to allow publishing continuously
         time.sleep(2)
