@@ -1,11 +1,48 @@
 # iot_azure_workshop
-> Instructions for replicating class nº7 and 8 of Internet of Things for Microsoft Azure.
+> English instructions for replicating class nº7 and 8 of Internet of Things for Microsoft Azure.
 
 ## How to use this repository
 
-The Python scripts are adapted versions of the previous mqtt bridge scripts for Azure, supporting only SAS (X.509 certificate support for Azure requires a self-hosted PKI setup and will not be discussed here).
+This repository contains the English instructions for the IoT class lectures regarding Microsoft Azure, as well as some Python scripts used to facilitate the connection to the cloud service.
 
 For starters, download this repository to your local drive and download DigiCert's Baltimore CyberTrust Root for connecting to the Azure IoT Hub with TLS: [https://cacerts.digicert.com/BaltimoreCyberTrustRoot.crt.pem](https://cacerts.digicert.com/BaltimoreCyberTrustRoot.crt.pem)
+
+## Microsoft Azure - Cloud Computing Services
+
+As an example of a cloud service, we will be using Microsoft's cloud, Microsoft Azure. For the final project, the use of this service is not mandatory. You can use other services such as AWS from Amazon, The Things.IO, Google Cloud, Ubidots, among others. Alternatively, if you prefer, you can run a local cloud on your PC.
+
+### Creating a student account on Microsoft Azure
+Azure allows you to create a student account where you will have access to $100 in credits that can be used in the first 12 months. In addition, you will have access to a set of free services without the need to provide a credit card at registration.
+
+The following steps will be presented to create a student account on Azure:
+
+- Go to the Azure for Students registration page: https://aka.ms/azureforstudents.
+- Enter the email you want to use to create the Azure account. We suggest using a personal email so that the account can continue to be accessible after you finish your course. You can always create a new Microsoft email, although this is not necessary.
+- Verification of identity as a student: First, it will be necessary to associate a mobile number with the account. An SMS will be sent to this number with a validation code. Later, a form will appear to verify your association with the University of Coimbra. In the "Verification Method" field, select the "School Email Address" option and enter your UC email (ucxxxxxxx@student.uc.pt). You will receive a confirmation message with a link to follow at that email address.
+- After this process, you will be redirected to the Azure portal's homepage. If you are not automatically redirected, you can navigate to the following address: https://portal.azure.com/
+- On the homepage, you will have access to a summary of the expenses already made and the remaining balance. You can also use the homepage to navigate to the various services provided by Azure. Our initial focus will be on the IoT Hub service. If you do not find it in the initial menu, select the "Explore All" option to access the complete listing of services offered.
+
+To get an idea of the free services you will have access to with your student account, you can follow this link:
+https://azure.microsoft.com/en-us/free/students/
+
+### How to create an IoT Hub on Microsoft Azure
+An IoT Hub is a service provided by Microsoft Azure that allows us to connect our IoT devices to the cloud. The Hub acts as a bridge between the devices and the cloud, allowing data sent by these devices to be stored and analyzed. It enables secure and reliable bidirectional communication (from device to cloud [D2C] and from cloud to device [C2D]) using commonly used IoT communication protocols such as HTTP, MQTT, and AMQP.
+
+For more information on this service, you can refer to the Microsoft Azure IoT Hub documentation. To add a new Hub, you can follow these steps:
+
+- Navigate to the IoT Hub page.A
+- Click on "Add Device."
+- In the form, select the following options:
+    - a. Subscription: Azure for Students
+    - b. Resource Group: Create a new resource group called IOT_Class (or another name you choose)
+    - c. Enter the name of the Hub (for example: IoT-Class-Hub)
+    - d. Region: West Europe (geographic region where the Hub servers will be located)
+    - e. Tier: Free
+    - f. Daily Message Limit: 8,000 (limit of the free version)  
+
+- Select the "Review+Create" option to confirm the addition of the new IoT Hub.
+
+> :memo: Take note of this: With the Student account, only one IoT Hub will be entitled to exchange 8,000 messages per day completely free of charge. Additional hubs may charge a fee depending on the number of messages exchanged between the hub and the device. It may take a few minutes for the hub to become active!
 
 ### Connecting with SAS
 To use SAS, you need to do the following steps:
@@ -34,7 +71,7 @@ To test the cloud-to-device transmissions, do the following:
     az iot device c2d-message send --hub-name {iothub_name} --device-id {device_id} --data "hello world"
 ```
 
-## Routing messages to a database on the cloud
+### Routing messages to a database on the cloud
 
 At this point, you should already be able to send messages to the cloud, but nothing should be happening, as we haven't defined any data processing pipelines.
 
