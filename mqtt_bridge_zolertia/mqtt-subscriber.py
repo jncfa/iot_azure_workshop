@@ -4,17 +4,18 @@ import ssl
 import sys
 
 # Connection parameters for the Azure IoT Hub:
-PATH_TO_ROOT_CERT  = "<local path to digicert.crt.pem file>"
-DEVICE_ID = "<device id from Azure's device registry>"
-SAS_TOKEN = "<generated SAS token>"
-IOT_HUB_NAME = "<iot hub name>"
+PATH_TO_ROOT_CERT  = "BaltimoreCyberTrustRoot.crt.pem"
+DEVICE_ID = "zolertia"
+SAS_TOKEN = "SharedAccessSignature sr=iot2023-jfuc-iothub.azure-devices.net%2Fdevices%2Fzolertia&sig=KhOtqc1Pm1AfIoIvx%2B4lat%2FHaCWEdQsvo1jB5nCPKNE%3D&se=1686776873"
+IOT_HUB_NAME = "iot2023-jfuc-iothub"
 
 # Address of the Cloud MQTT Broker for Azure IoT Hub and MQTT username of the device:
 CLOUD_MQTT_URL = "{}.azure-devices.net".format(IOT_HUB_NAME)
 USERNAME = "{}/{}/?api-version=2021-04-12".format(CLOUD_MQTT_URL, DEVICE_ID)
 
 # Topic to get information from the cloud:
-CLOUD_TOPIC_SUB = "devices/{}/messages/devicebound".format(DEVICE_ID)
+#CLOUD_TOPIC_SUB = "devices/{}/messages/devicebound".format(DEVICE_ID)
+CLOUD_TOPIC_SUB = "$iothub/twin/PATCH/properties/desired"
 
 #Override MQTT_TOPIC from the cmd line:
 if len(sys.argv) > 1:
